@@ -23,5 +23,6 @@ jobs:
           file=$(find dist/assets/ -type f -name 'app.*' | head -n 1)
           echo "file=$file" >> "$GITHUB_OUTPUT"      
       
+          
       - name: Print code
         run: echo "File: ${{ steps.get-app-file.outputs.file }}"
