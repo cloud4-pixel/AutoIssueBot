@@ -1,0 +1,46 @@
+name: AutoIssueBot
+on: push
+
+jobs:
+  send_to_gemini:
+    env: 
+      GOOGLE_API_KEY : ${{ secrets.GOOGLE_API_KEY }}
+    environment: send_to_gemini
+    runs-on: ubuntu-latest
+    outputs:
+      file-name: ${{ steps.get-app-file.outputs.file }}
+    steps:
+
+      - name: Get Code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get code
+        id: get-app-file
+        run: find dist/assets/ -type f -name 'app.*' -execdir echo 'file={}' >> $GITHUB_OUTPUT ';'
+      
+      - name: Print code
+        run: echo ${{ outputs.file-name }} 
+
+
+      # - name: Send code to gemini
+      #   run:  curl -s -X POST \
+      #     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
+      #     -H "Content-Type: application/json" \
+      #     -d '{
+      #           "contents": [
+      #             {
+      #             "parts": [
+      #             { "text": ${{ jobs.send_to_gemini.outputs.file-code }} }
+      #             ]
+      #           }
+      #           ]
+      #           }' 
+
+
+
+
+
+
