@@ -45,8 +45,10 @@ jobs:
                 "contents": [
                   {
                     "parts": [
-                      { "text": "שלום ג׳מיני, תכתוב לי בדיחה קצרה" }
+                      { "text": "שלום ג׳מיני, ${{ jobs.get-file.outputs.file-content }}" }
                     ]
                   }
                 ]
               }'
+
+              echo: hello
