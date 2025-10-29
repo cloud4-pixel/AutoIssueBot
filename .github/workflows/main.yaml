@@ -22,7 +22,7 @@ jobs:
         run: find dist/assets/ -type f -name 'app.*' -execdir echo 'file={}' >> $GITHUB_OUTPUT ';'
       
       - name: Print code
-        run: echo ${{ outputs.file-name }} 
+        run: echo ${{ jobs.outputs.outputs.file-name }} 
 
 
       # - name: Send code to gemini
@@ -38,9 +38,3 @@ jobs:
       #           }
       #           ]
       #           }' 
-
-
-
-
-
-
