@@ -38,6 +38,7 @@ jobs:
     steps:
       - name: send to gemini
         run: |
+            decoded=$(echo "$FILE_CONTENT" | base64 --decode)
             curl -s -X POST \
               "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
               -H "Content-Type: application/json" \
@@ -45,7 +46,7 @@ jobs:
                 "contents": [
                   {
                     "parts": [
-                      { "text": "שלום ג׳מיני, ${{ jobs.get-file.outputs.file-content }}" }
+                      { "text": "שלום ג׳מיני, $decoded" }
                     ]
                   }
                 ]
