@@ -40,7 +40,7 @@ jobs:
       - name: send to gemini
         run: |
             decoded=$(echo "$FILE_CONTENT" | base64 --decode)
-            json=$(jq -n --arg text "שלום ג׳מיני, $decoded" \
+            json=$(jq -n --arg text " שלום ג׳מיני, האם יש לי שגיאות בקוד? $decoded" \
             '{contents: [{parts: [{text: $text}]}]}')
             curl -s -X POST \
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
