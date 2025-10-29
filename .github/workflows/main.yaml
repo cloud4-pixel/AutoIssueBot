@@ -43,14 +43,6 @@ jobs:
             json=$(jq -n --arg text "שלום ג׳מיני, $decoded" \
             '{contents: [{parts: [{text: $text}]}]}')
             curl -s -X POST \
-              "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
-              -H "Content-Type: application/json" \
-              -d '{
-                "contents": [
-                  {
-                    "parts": [
-                      { "text": $json }
-                    ]
-                  }
-                ]
-              }'
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d "$json"
