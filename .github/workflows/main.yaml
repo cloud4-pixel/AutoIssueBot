@@ -22,20 +22,6 @@ jobs:
         run: |
           file=$(find dist/assets/ -type f -name 'app.*' | head -n 1)
           echo "file=$file" >> "$GITHUB_OUTPUT"      
+      
       - name: Print code
         run: echo "File: ${{ steps.get-app-file.outputs.file }}"
-
-
-      # - name: Send code to gemini
-      #   run:  curl -s -X POST \
-      #     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
-      #     -H "Content-Type: application/json" \
-      #     -d '{
-      #           "contents": [
-      #             {
-      #             "parts": [
-      #             { "text": ${{ jobs.send_to_gemini.outputs.file-code }} }
-      #             ]
-      #           }
-      #           ]
-      #           }' 
