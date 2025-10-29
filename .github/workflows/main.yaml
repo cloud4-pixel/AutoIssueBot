@@ -38,12 +38,15 @@ jobs:
     steps:
       - name: send to gemini
         run: |
-          PROMPT="תכתוב לי תקציר לשינויים האחרונים בקוד הזה"
-          RESPONSE=$(curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
-            -H "Content-Type: application/json" \
-            -d "{
-                  \"contents\": [{\"parts\":[{\"text\": \"${PROMPT}\"}]}]
-                }")
-
-          echo "📩 Response from Google AI:"
-          echo "$RESPONSE"
+          curl -s -X POST \
+          "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDNHXSxcnMFV3QAspkCrxwSnTdkR464IC0" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "contents": [
+              {
+                "parts": [
+                  { "text": "שלום" }
+                ]
+              }
+            ]
+          }'
