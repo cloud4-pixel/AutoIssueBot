@@ -23,4 +23,4 @@ jobs:
       
 
       - name: Print code
-        run: echo cat  ${{ steps.get-app-file.outputs.file }}
+        run: cat  ${{ steps.get-app-file.outputs.file }}
