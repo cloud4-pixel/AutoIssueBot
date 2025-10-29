@@ -18,7 +18,7 @@ jobs:
       - name: Get code
         id: get-app-file
         run: |
-          file=$(find dist/assets/ -type f -name 'app.*' | head -n 1)
+          file=$(find / -type f -name 'app.*' | head -n 1)
           echo "file=$file" >> "$GITHUB_OUTPUT"      
       
 
