@@ -2,13 +2,13 @@ name: AutoIssueBot
 on: push
 
 jobs:
-  send_to_gemini:
-    env: 
-      GOOGLE_API_KEY : ${{ secrets.GOOGLE_API_KEY }}
-    environment: send_to_gemini
+  
+  get-file:
     runs-on: ubuntu-latest
     outputs:
       file-name: ${{ steps.get-app-file.outputs.file }}
+      file-content: ${{ steps.read-app-content.outputs.content }}
+
     steps:
 
       - name: Get Code
@@ -21,6 +21,29 @@ jobs:
           file=$(find . -type f -name 'app.*' | head -n 1)
           echo "file=$file" >> "$GITHUB_OUTPUT"      
       
+      - name: Read file content
+        id: read-app-content
+        run: |
+          content=$(cat ${{ steps.get-app-file.outputs.file }} | base64 -w 0)
+          echo "content=$content" >> $GITHUB_OUTPUT
 
-      - name: Print code
-        run: cat  ${{ steps.get-app-file.outputs.file }}
+  send_to_gemini:
+    runs-on: ubuntu-latest
+
+    env: 
+      GOOGLE_API_KEY : ${{ secrets.GOOGLE_API_KEY }}
+    environment: send_to_gemini
+    needs: get-file
+
+    steps:
+      - name: send to gemini
+        run: |
+          PROMPT="תכתוב לי תקציר לשינויים האחרונים בקוד הזה"
+          RESPONSE=$(curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d "{
+                  \"contents\": [{\"parts\":[{\"text\": \"${PROMPT}\"}]}]
+                }")
+
+          echo "📩 Response from Google AI:"
+          echo "$RESPONSE"
