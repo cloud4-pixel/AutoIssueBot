@@ -42,7 +42,9 @@ jobs:
             decoded=$(echo "$FILE_CONTENT" | base64 --decode)
             json=$(jq -n --arg text " Analyze the following code and answer in one single word only — either "Yes" if the code is valid and error-free, or "No" if it contains any errors. Do not explain, add punctuation, or use any extra words. Code: $decoded" \
             '{contents: [{parts: [{text: $text}]}]}')
-            curl -s -X POST \
+            respose = 'curl -s -X POST \
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
             -H "Content-Type: application/json" \
-            -d "$json"
+            -d "$json"'
+
+            echo $respose
