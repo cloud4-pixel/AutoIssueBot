@@ -39,7 +39,7 @@ jobs:
       - name: send to gemini
         run: |
           curl -s -X POST \
-          "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDNHXSxcnMFV3QAspkCrxwSnTdkR464IC0" \
+          "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=YOUR_KEY" \
           -H "Content-Type: application/json" \
           -d '{
             "contents": [
