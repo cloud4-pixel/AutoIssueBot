@@ -32,6 +32,7 @@ jobs:
 
     env: 
       GOOGLE_API_KEY : ${{ secrets.GOOGLE_API_KEY }}
+      FILE_CONTENT: ${{ needs.get-file.outputs.file-content }}
     environment: send_to_gemini
     needs: get-file
 
