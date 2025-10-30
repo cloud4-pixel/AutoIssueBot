@@ -7,7 +7,7 @@ API_KEY = os.environ.get("GOOGLE_API_KEY")  # או פשוט לכתוב ישיר�
 MODEL = "gemini-2.5-flash"
 
 # הודעה לדוגמה
-prompt = "שלום ג׳מיני, מה שלומך היום?"
+prpt = "שלום ג׳מיני, מה שלומך היום?"
 
 # בקשת POST ל־Gemini API
 url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}"
