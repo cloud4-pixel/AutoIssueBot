@@ -50,4 +50,4 @@ jobs:
             **Commit:** ${{ github.sha }} 
             **Branch:** ${{ github.ref_name }} 
             **Actor:** @${{ github.actor }}
-            **problem** ${{needs.gemini.outputs.gemini_result}}"
+            **problem** ${{ needs.gemini.outputs.gemini_result }}"
