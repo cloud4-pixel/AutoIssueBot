@@ -58,7 +58,7 @@ jobs:
 
             Code: $decoded"
 
-            json=$(jq -n --arg text $prompt" \
+            json=$(jq -n --arg text $prompt \
             '{contents: [{parts: [{text: $text}]}]}')
             response=$(curl -s -X POST \
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
