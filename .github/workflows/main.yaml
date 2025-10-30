@@ -56,10 +56,9 @@ jobs:
             - ERROR → if there is a definite, unavoidable problem.
             - OK → if the code can run successfully as-is.
 
-            Code:
-            "
+            Code: $decoded"
 
-            json=$(jq -n --arg text $prompt $decoded" \
+            json=$(jq -n --arg text $prompt" \
             '{contents: [{parts: [{text: $text}]}]}')
             response=$(curl -s -X POST \
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
