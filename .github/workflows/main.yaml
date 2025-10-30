@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: send_to_gemini
     outputs:
-      RESULT: ${{ needs.send-to-gemini.outputs.result }}
+      RESULT: ${{ needs.send-to-gemini.outputs.RESULT }}
 
 
     steps:
