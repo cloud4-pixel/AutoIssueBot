@@ -54,6 +54,10 @@ jobs:
             result=$(echo "$response" | jq -r '.candidates[0].content.parts[0].text')
             echo "$result"
             echo result="$result" >> $GITHUB_OUTPUT
+
+      - name: checke result
+        run: echo $RESULT
+            
   print-result:
     runs-on: ubuntu-latest
     needs: send_to_gemini
@@ -63,5 +67,5 @@ jobs:
 
     steps:
       - name: print result from gemini
-        run: echo "$RESULT"
+        run: echo $RESULT
 
