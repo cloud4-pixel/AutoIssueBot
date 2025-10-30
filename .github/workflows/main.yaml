@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       result-code: ${{ steps.get-app-file.outputs.file }}
-      RESULT: ${{ steps.send-to-gemini.outputs.result }}
+      RESULT: ${{ steps.send-to-gemini.outputs.response }}
 
 
     env: 
@@ -54,7 +54,7 @@ jobs:
 
             result=$(echo "$response" | jq -r '.candidates[0].content.parts[0].text')
             echo "$result"
-            echo result="$result" >> $GITHUB_OUTPUT
+            echo response="$result" >> $GITHUB_OUTPUT
 
       - name: checke result
         run: echo "$RESULT"
