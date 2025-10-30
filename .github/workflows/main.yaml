@@ -44,7 +44,7 @@ jobs:
         id: send-to-gemini
         run: |
             decoded=$(echo "$FILE_CONTENT" | base64 --decode)
-            json=$(jq -n --arg code "$decoded" \
+            echo json=$(jq -n --arg code "$decoded" \
             '{contents: [{parts: [{text: "Analyze the following code snippet. If it is syntactically valid and error-free, answer with only: Yes. If it has any errors, answer with only: No.\n\n```code\n" + $code + "\n```"}]}]}')
 
             response=$(curl -s -X POST \
