@@ -89,3 +89,16 @@ jobs:
           decoded=$(echo "$FILE_CONTENT" | base64 --decode)
           echo "Gemini said"
           echo "$decoded"
+
+
+  create_issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - name: Create Issue with GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create --title "Automated Issue from Workflow" --body "There is an error in the uploaded file."
