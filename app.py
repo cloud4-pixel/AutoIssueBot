@@ -10,7 +10,7 @@ MODEL = "gemini-2.5-flash"
 prompt = "שלום ג׳מיני, מה שלומך היום?"
 
 # בקשת POST ל־Gemini API
-url = f"https://generanuage.gooapis.com/veta/moels/{MODEL}:generaContent?key={API_KEY}"
+url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}"
 
 payload = {
     "contents": [
