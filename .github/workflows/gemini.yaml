@@ -23,4 +23,5 @@ jobs:
       - name: Run Gemini script
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          environment: send_to_gemini
         run: python scripts/send_to_gemini.py
