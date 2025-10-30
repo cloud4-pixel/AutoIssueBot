@@ -58,8 +58,13 @@ jobs:
             
   print-result:
     runs-on: ubuntu-latest
-    needs: send_to_gemini
+    needs: 
+      - send_to_gemini
+      - get-file
 
     steps:
       - name: print result from gemini
         run: echo "Gemini said ${{ needs.send_to_gemini.outputs.result }}"
+  
+      - name: print file name
+        run: echo "Gemini said ${{ needs.get-file.outputs.file-content }}"
