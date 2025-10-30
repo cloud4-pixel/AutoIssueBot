@@ -9,8 +9,10 @@ jobs:
       file-content: ${{ steps.read-app-content.outputs.content }}
 
     steps:
+
       - name: Get Code
         uses: actions/checkout@v3
+
 
       - name: Get code
         id: get-app-file
@@ -28,7 +30,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.send-to-gemini.outputs.response }}
-      json: ${{ steps.send-to-gemini.outputs.json }}
 
 
     env: 
@@ -50,11 +51,6 @@ jobs:
             -H "Content-Type: application/json" \
             -d "$json")
 
-            echo (curl -s -X POST \
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
-            -H "Content-Type: application/json" \
-            -d "$json")
-
             result=$(echo "$response" | jq -r '.candidates[0].content.parts[0].text')
             echo "$result"
             echo "response=$result" >> $GITHUB_OUTPUT
@@ -69,18 +65,13 @@ jobs:
     steps:
       - name: print result from gemini
         run: echo "Gemini said ${{ needs.send_to_gemini.outputs.result }}"
-
-      - name: print send json
-        run: echo "Gemini said ${{ needs.send_to_gemini.outputs.json }}"
-
   
-      # - name: print file name
-      #   env:
-      #     FILE_CONTENT: ${{ needs.get-file.outputs.file-content }}
-      #   run: 
-      #     echo FILE_CONTENT
-      #     echo "$FILE_CONTENT"
-      #     decoded=$(echo "$FILE_CONTENT" | base64 --decode)
-      #     echo "Gemini said"
-      #     printf '%s\n' "$decoded"
-
+      - name: print file name
+        env:
+          FILE_CONTENT: ${{ needs.get-file.outputs.file-content }}
+        run: 
+          echo FILE_CONTENT
+          echo "$FILE_CONTENT"
+          decoded=$(echo "$FILE_CONTENT" | base64 --decode)
+          echo "Gemini said"
+          echo "$decoded"
