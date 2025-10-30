@@ -70,6 +70,8 @@ jobs:
         env:
           FILE_CONTENT: ${{ needs.get-file.outputs.file-content }}
         run: 
+          echo FILE_CONTENT
+          echo "$FILE_CONTENT"
           decoded=$(echo "$FILE_CONTENT" base64 --decode)
 
           echo "Gemini said"
