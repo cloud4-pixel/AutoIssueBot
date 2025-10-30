@@ -43,7 +43,7 @@ jobs:
       - name: Create GitHub issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: ${{ needs.gemini.outputs.gemini_result}}  != 'NO' 
+        if: ${{ needs.gemini.outputs.gemini_result != 'NO' }}
         run: |
           gh issue create \
             --repo ${{ github.repository }} \
