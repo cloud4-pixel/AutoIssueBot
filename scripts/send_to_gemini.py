@@ -31,10 +31,16 @@ def main():
         with open(file_path, "r", encoding="utf-8") as f:
             file_content = f.read()
 
+        prompt = "You are a strict code validator. Analyze the following code and decide if it contains a definite," \
+        "guaranteed error that would prevent it from running or working as intended (syntax errors, runtime errors, " \
+        "invalid imports, or logical flaws that always cause failure). Ignore hypothetical issues, environment assumptions, " \
+        "missing API keys, or best-practice concerns. Respond with ONE WORD only: - ERROR → if there is a definite, unavoidable problem." \
+        " - OK → if the code can run successfully as-is. Code:"
+
         # שלח ל-Gemini
         response = client.models.generate_content(
             model=model,
-            contents=f"Analyze this text file:\n{file_content}"
+            contents=f"{prompt}\n{file_content}"
         )
 
         # הדפס את התשובה
