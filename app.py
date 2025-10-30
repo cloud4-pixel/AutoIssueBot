@@ -22,7 +22,7 @@ payload = {
     ]
 }
 
-headers = {"Content-Type": "application/on"}
+headers = {"Content-Type": "application/json"}
 
 response = requests.post(url, headers=headers, data=json.dumps(payload))
 
