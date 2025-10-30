@@ -44,8 +44,9 @@ jobs:
         id: send-to-gemini
         run: |
             decoded=$(echo "$FILE_CONTENT" | base64 --decode)
-            json=$(jq -n --arg text " Analyze the following code and answer in one single word only — either 'Yes' if the code is valid and error-free, or 'No' if it contains any errors. Do not explain, add punctuation, or use any extra words. Code: $decoded" \
-            '{contents: [{parts: [{text: $text}]}]}')
+            json=$(jq -n --arg code "$decoded" \
+            '{contents: [{parts: [{text: "Analyze the following code snippet. If it is syntactically valid and error-free, answer with only: Yes. If it has any errors, answer with only: No.\n\n```code\n" + $code + "\n```"}]}]}')
+
             response=$(curl -s -X POST \
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
             -H "Content-Type: application/json" \
