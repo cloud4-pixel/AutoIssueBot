@@ -62,6 +62,6 @@ jobs:
 
     steps:
       - name: print result from gemini
-        run: echo "'Gemini said:' ${{ needs.send_to_gemini.outputs.result }}"
+        run: echo "${{ needs.send-to-gemini.outputs.result }}"
 
 
