@@ -16,7 +16,7 @@ payload = {
     "contents": [
         {
             "parts": [
-                {"text": prompt}
+                {"text": promp}
             ]
         }
     ]
