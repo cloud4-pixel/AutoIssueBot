@@ -6,7 +6,6 @@ jobs:
   get-file:
     runs-on: ubuntu-latest
     outputs:
-      file-name: ${{ steps.get-app-file.outputs.file }}
       file-content: ${{ steps.read-app-content.outputs.content }}
 
     steps:
@@ -30,7 +29,6 @@ jobs:
   send_to_gemini:
     runs-on: ubuntu-latest
     outputs:
-      result-code: ${{ steps.get-app-file.outputs.file }}
       result: ${{ steps.send-to-gemini.outputs.response }}
 
 
@@ -57,8 +55,6 @@ jobs:
             echo "$result"
             echo "response=$result" >> $GITHUB_OUTPUT
 
-      # - name: checke result
-      #   run: echo "$RESULT"
             
   print-result:
     runs-on: ubuntu-latest
@@ -66,6 +62,6 @@ jobs:
 
     steps:
       - name: print result from gemini
-        run: echo "${{ needs.send-to-gemini.outputs.result }}"
+        run: echo "'Gemini said:' ${{ needs.send_to_gemini.outputs.result }}"
 
 
