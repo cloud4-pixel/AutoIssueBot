@@ -7,7 +7,9 @@ jobs:
   gemini:
     runs-on: ubuntu-latest
     environment: send_to_gemini
-
+    
+    outputs:
+        gemini_result: ${{ steps.gemini.outputs.gemini_result }}
 
     steps:
       - name: Checkout repository
