@@ -14,7 +14,7 @@ def main():
     model = "gemini-2.0-pro"
 
     # קרא את תוכן הקובץ
-    with open("../app.py", "r", encoding="utf-8") as f:
+    with open("app.py", "r", encoding="utf-8") as f:
         file_content = f.read()
 
     # שלח ל-Gemini
