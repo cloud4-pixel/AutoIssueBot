@@ -66,6 +66,6 @@ jobs:
 
     steps:
       - name: print result from gemini
-        run: echo ${{ needs.send-to-gemini.outputs.result }}
+        run: echo "${{ needs.send-to-gemini.outputs.result }}"
 
 
