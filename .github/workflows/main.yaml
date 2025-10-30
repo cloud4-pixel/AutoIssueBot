@@ -44,7 +44,22 @@ jobs:
         id: send-to-gemini
         run: |
             decoded=$(echo "$FILE_CONTENT" | base64 --decode)
-            json=$(jq -n --arg text "Analyze the following code and answer in one word only - either 'yes' if the code is valid and error-free, or 'no' if it contains errors. If there are any errors, explain them. Code: $decoded" \
+
+            prompt="You are a strict code validator.
+            Analyze the following code and decide if it contains a definite, guaranteed error
+            that would prevent it from running or working as intended (syntax errors, runtime errors,
+            invalid imports, or logical flaws that always cause failure).
+
+            Ignore hypothetical issues, environment assumptions, missing API keys, or best-practice concerns.
+
+            Respond with ONE WORD only:
+            - ERROR → if there is a definite, unavoidable problem.
+            - OK → if the code can run successfully as-is.
+
+            Code:
+            "
+
+            json=$(jq -n --arg text $prompt $decoded" \
             '{contents: [{parts: [{text: $text}]}]}')
             response=$(curl -s -X POST \
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GOOGLE_API_KEY}" \
