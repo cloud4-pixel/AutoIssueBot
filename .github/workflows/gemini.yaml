@@ -49,4 +49,5 @@ jobs:
             --body "There is an error in the uploaded file.
             **Commit:** ${{ github.sha }} 
             **Branch:** ${{ github.ref_name }} 
-            **Actor:** @${{ github.actor }}"
+            **Actor:** @${{ github.actor }}
+            **problem** ${{needs.gemini.outputs.gemini_result}}"
