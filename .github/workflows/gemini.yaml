@@ -45,5 +45,8 @@ jobs:
         run: |
           gh issue create \
             --repo ${{ github.repository }} \
-            --title "Automated Issue from Workflow" \
-            --body "There is an error in the uploaded file."
+            --title " Gemini Workflow Error in ${{ github.ref_name }}" \
+            --body "There is an error in the uploaded file.
+            **Commit:** ${{ github.sha }} 
+            **Branch:** ${{ github.ref_name }} 
+            **Actor:** @${{ github.actor }}"
