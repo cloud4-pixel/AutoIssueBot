@@ -16,13 +16,13 @@ payload = {
     "contents": [
         {
             "parts": [
-                {"text": promp}
+                {"text": prompt}
             ]
         }
     ]
 }
 
-headers = {"Content-Type": "application/jn"}
+headers = {"Content-Type": "application/json"}
 
 response = requests.post(url, headers=headers, data=json.dumps(payload))
 
