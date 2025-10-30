@@ -31,12 +31,13 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       result-code: ${{ steps.get-app-file.outputs.file }}
-      RESULT: ${{ steps.send-to-gemini.outputs.response }}
+      result: ${{ steps.send-to-gemini.outputs.response }}
 
 
     env: 
       GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
       FILE_CONTENT: ${{ needs.get-file.outputs.file-content }}
+
     environment: send_to_gemini
     needs: get-file
 
@@ -56,17 +57,15 @@ jobs:
             echo "$result"
             echo "response=$result" >> $GITHUB_OUTPUT
 
-      - name: checke result
-        run: echo "$RESULT"
+      # - name: checke result
+      #   run: echo "$RESULT"
             
   print-result:
     runs-on: ubuntu-latest
     needs: send_to_gemini
-    outputs:
-      RESULT: ${{ needs.send-to-gemini.outputs.RESULT }}
-
 
     steps:
       - name: print result from gemini
-        run: echo "$RESULT"
+        run: echo ${{ needs.send-to-gemini.outputs.result }}
+
 
