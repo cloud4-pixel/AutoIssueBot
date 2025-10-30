@@ -11,7 +11,7 @@ def main():
     client = genai.Client(api_key=api_key)
 
     # בחר את המודל
-    model = "gemini-2.0-pro"
+    model = "gemini-1.5-pro"
 
     # קרא את תוכן הקובץ
     with open("app.py", "r", encoding="utf-8") as f:
