@@ -54,7 +54,7 @@ jobs:
 
             result=$(echo "$response" | jq -r '.candidates[0].content.parts[0].text')
             echo "$result"
-            echo response="$result" >> $GITHUB_OUTPUT
+            echo "response=$result" >> $GITHUB_OUTPUT
 
       - name: checke result
         run: echo "$RESULT"
