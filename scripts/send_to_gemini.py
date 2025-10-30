@@ -21,11 +21,15 @@ def main():
             file_content = f.read()
 
         prompt = (
-            "You are a strict code validator. Analyze the following code and decide if it contains "
-            "a definite, guaranteed error that would prevent it from running or working as intended. "
-            "Ignore hypothetical issues, environment assumptions, missing API keys, or best-practice concerns. "
-            "Respond with ONE WORD only: ERROR or OK.\n\nCode:\n"
+            "You are a strict but concise code validator. Analyze the following code carefully.\n\n"
+            "If the code contains a definite error that would prevent it from running or working as intended, "
+            "respond with a **short, plain-English explanation** of the issue (max 2 short sentences). "
+            "Focus only on real syntax or logic errors — ignore missing API keys, environment setup, or best practices.\n\n"
+            "If there is **no clear error**, respond with just the word: **NO**.\n\n"
+            "Format your response to be suitable for inclusion in a GitHub Issue body (plain text, no markdown code blocks).\n\n"
+            "Code:\n"
         )
+
 
         response = client.models.generate_content(
             model=model,
