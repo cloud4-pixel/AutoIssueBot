@@ -54,6 +54,8 @@ jobs:
             echo "result=$result" >> $GITHUB_OUTPUT
   print-result:
     runs-on: ubuntu-latest
+    needs: send_to_gemini
+
     steps:
       - name: print result from gemini
         run: echo $RESULT
