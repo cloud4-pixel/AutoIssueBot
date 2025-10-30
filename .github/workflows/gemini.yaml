@@ -6,6 +6,8 @@ on:
 jobs:
   gemini:
     runs-on: ubuntu-latest
+    environment: send_to_gemini
+
 
     steps:
       - name: Checkout repository
