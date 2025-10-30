@@ -14,7 +14,7 @@ def main():
         client = genai.Client(api_key=api_key)
 
         # בחר את המודל
-        model = "gemini-1.5-pro"
+        model = "models/gemini-2.5-pro"
 
         # בדוק שהמודל קיים
         available_models = [m.name for m in client.models.list()]
