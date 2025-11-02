@@ -37,7 +37,9 @@ def main():
         print("⚠️ No code files found.")
         return
 
-    with open(github_output, "a") as gh_out:
+    results_file = "gemini_results.txt"
+
+    with open(results_file, "w") as gh_out:
         for file_path in all_files:
             try:
                 with open(file_path, "r", encoding="utf-8") as f:
@@ -61,6 +63,12 @@ def main():
 
                 # כתיבה לפלט (שם הקובץ = תוצאה)
                 gh_out.write(f"{file_path}={result}\n")
+
+                # הוסף גם לפלט של GitHub כדי שהשלב הבא ידע איפה הקובץ
+                github_output = os.environ.get("GITHUB_OUTPUT")
+                if github_output:
+                    with open(github_output, "a") as f:
+                        f.write(f"gemini_result={results_file}\n")
 
             except Exception as e:
                 print(f"❌ Error processing {file_path}: {e}", file=sys.stderr)

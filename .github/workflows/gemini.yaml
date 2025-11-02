@@ -39,14 +39,20 @@ jobs:
       issues: write
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Create GitHub issues per file
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          RESULTS_FILE="${{ needs.gemini.outputs.gemini_result }}"
+          echo "🔎 Reading results from $RESULTS_FILE"
           while IFS= read -r line; do
             file=$(echo "$line" | cut -d'=' -f1)
             msg=$(echo "$line" | cut -d'=' -f2-)
-            if [ "$msg" != "NO" ]; then
+            if [ "$msg" != "NO" ] && [ -n "$msg" ]; then
+              echo "🧾 Creating issue for $file"
               gh issue create \
                 --repo ${{ github.repository }} \
                 --title "Gemini found error in $file" \
@@ -56,4 +62,4 @@ jobs:
                 **Actor:** @${{ github.actor }}  
                 **Problem:** $msg"
             fi
-          done < ${{ steps.gemini.outputs.gemini_result }}
+          done < "$RESULTS_FILE"
