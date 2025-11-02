@@ -27,7 +27,7 @@ jobs:
         id: gemini
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        run: python scripts/send_to_gemini.py src  # <-- נתיב התיקייה שלך (אפשר לשנות)
+        run: python scripts/send_to_gemini.py .  # <-- נתיב התיקייה שלך (אפשר לשנות)
 
       - name: Print Gemini response
         run: echo "Gemini said ${{ steps.gemini.outputs.gemini_result }}"
