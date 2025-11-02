@@ -29,6 +29,12 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: python scripts/send_to_gemini.py .  # <-- נתיב התיקייה שלך (אפשר לשנות)
 
+      - name: Upload results file
+        uses: actions/upload-artifact@v4
+        with:
+          name: gemini-results
+          path: gemini_results.txt
+
       - name: Print Gemini response
         run: echo "Gemini said ${{ steps.gemini.outputs.gemini_result }}"
 
@@ -41,6 +47,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Download results file
+        uses: actions/download-artifact@v4
+        with:
+          name: gemini-results
+          path: .
 
       - name: Create GitHub issues per file
         env:
