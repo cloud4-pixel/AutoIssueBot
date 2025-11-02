@@ -9,7 +9,7 @@ jobs:
     environment: send_to_gemini
     
     outputs:
-        gemini_result: ${{ steps.gemini.outputs.gemini_result }}
+      gemini_result: ${{ steps.gemini.outputs.gemini_result }}
 
     steps:
       - name: Checkout repository
@@ -27,12 +27,11 @@ jobs:
         id: gemini
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        run: python scripts/send_to_gemini.py
+        run: python scripts/send_to_gemini.py src  # <-- נתיב התיקייה שלך (אפשר לשנות)
 
       - name: Print Gemini response
         run: echo "Gemini said ${{ steps.gemini.outputs.gemini_result }}"
 
-    
   create_issue:
     runs-on: ubuntu-latest
     needs: gemini
@@ -40,16 +39,21 @@ jobs:
       issues: write
 
     steps:
-      - name: Create GitHub issue
+      - name: Create GitHub issues per file
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: ${{ needs.gemini.outputs.gemini_result != 'NO' }}
         run: |
-          gh issue create \
-            --repo ${{ github.repository }} \
-            --title " Gemini Workflow Error in ${{ github.ref_name }}" \
-            --body "There is an error in the uploaded file.
-            **Commit:** ${{ github.sha }} 
-            **Branch:** ${{ github.ref_name }} 
-            **Actor:** @${{ github.actor }}
-            **problem** ${{ needs.gemini.outputs.gemini_result }}"
+          while IFS= read -r line; do
+            file=$(echo "$line" | cut -d'=' -f1)
+            msg=$(echo "$line" | cut -d'=' -f2-)
+            if [ "$msg" != "NO" ]; then
+              gh issue create \
+                --repo ${{ github.repository }} \
+                --title "Gemini found error in $file" \
+                --body "Gemini detected an issue in **$file**  
+                **Commit:** ${{ github.sha }}  
+                **Branch:** ${{ github.ref_name }}  
+                **Actor:** @${{ github.actor }}  
+                **Problem:** $msg"
+            fi
+          done < ${{ steps.gemini.outputs.gemini_result }}
